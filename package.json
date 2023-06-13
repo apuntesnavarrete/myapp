@@ -16,7 +16,9 @@
     "http-errors": "~1.6.3",
     "joi": "^17.9.2",
     "morgan": "~1.9.1",
-    "mysql2": "^3.3.3"
+    "mysql2": "^3.3.3",
+    "sequelize": "^6.32.0",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2"

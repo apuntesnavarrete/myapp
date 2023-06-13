@@ -4,7 +4,7 @@ var router = express.Router();
 const partielsService = require('../service/routersService')
 const validatorHandler = require('../mid/validator.handler')
 const { createProductSchema } = require('../schemas/product.schema')
-
+const { User  } = require('../db/models/modelClass')
 
 const service = new partielsService()
 
@@ -17,9 +17,10 @@ router.get('/:liga/:categoria/General', async(req, res, next)=> {
 try{
   const { liga , categoria} = req.params
 
-  const products = await service.find();
+  const users = await User.findAll();
+
   
-    res.json(products);
+    res.json(users);
 }catch(error){
 next(error)
 }

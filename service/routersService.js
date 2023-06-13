@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const pool = require('../lib/mysql');
+const sequelize = require('../lib/sequealize');
 
 class PartielsService {
     constructor() {
@@ -14,16 +14,15 @@ class PartielsService {
               }
         ];
 
-        this.pool = pool;
-         this.pool.on('error', (err) => console.error(err));
+       
   }
     
 
    async find() {
 
     const query_products = "SELECT * FROM products"
-    const rta = await this.pool.query(query_products)
-    return rta
+    const [data, metadata] = await sequelize.query(query_products)
+    return data
     }
 
     create(data) {

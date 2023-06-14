@@ -27,13 +27,47 @@ next(error)
 
 });
 
+router.get('/:liga/:categoria/General/:id', async(req, res, next)=> {
+  try{
+    const { liga , categoria , id} = req.params
+  
+    const users = await User.findByPk(id);
+  
+    
+      res.json(users);
+  }catch(error){
+  next(error)
+  }
+  
+  });
+
+  router.get('/:liga/:categoria/General/name/:name', async(req, res, next)=> {
+    try{
+      const { liga , categoria , name} = req.params
+      console.log(name)
+      const users = await User.findOne({ where: { name: name}});
+    
+      
+        res.json(users);
+    }catch(error){
+    next(error)
+    }
+    
+    });
+
+
 router.post('/:liga/:categoria/General', 
   validatorHandler(createProductSchema,'body'),
 
 async(req, res, next) => {
 
  const body = req.body;
+console.log(body)
+ const newProduct = await User.create(body);
+
+/*
  const newProduct = await service.create(body)
+ */
  res.status(201).json(newProduct)
   });
 
@@ -47,8 +81,9 @@ async(req, res, next) => {
    try{
     const {id} = req.params;
     const body = req.body;
-    const product = await service.update(id,body)
-    res.json(product)
+    const users = await User.findByPk(id);
+    const rta = users.update(body)
+    res.json(rta)
    } catch(error){
     res.status(404).json({
       message:error.message
@@ -56,12 +91,14 @@ async(req, res, next) => {
    }
      });
 
-     router.delete('/:liga/:categoria/General/:id', function(req, res, next) {
+     router.delete('/:liga/:categoria/General/:id', async(req, res, next) =>{
 
       const {id} = req.params;
       console.log(id)
-      const rta = service.delete(id)
-      res.json(rta)
+      const users = await User.findByPk(id);
+      await users.destroy()
+
+      res.json(id)
        });
 
 /*

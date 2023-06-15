@@ -25,7 +25,7 @@ class PartielsService {
     return data
     }
 
-    create(data) {
+  async create(data) {
         const newProduct = {
             ...data
         };
